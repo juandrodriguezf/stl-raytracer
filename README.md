@@ -73,6 +73,61 @@ mingw32-make clean
 
 `frames/` y `png/` están en `.gitignore`; se regeneran con `run.ps1`.
 
+## Cómo funciona
+
+```mermaid
+flowchart LR
+  STL[busto.stl] --> LOAD[stl.c<br/>STL binario y normales]
+  LOAD --> MESH[MESH_T]
+  MESH --> BVH[bvh.c<br/>BVH por mediana]
+  BVH --> RENDER[render.c<br/>cámara, luz y sombras]
+  RENDER --> PGM[frames/*.pgm]
+  PGM --> PNG[pgm2png.py]
+  PNG --> OUT[PNG + animation.gif]
+```
+
+Cada píxel lanza `s x s` rayos; el BVH acelera la búsqueda del triángulo más
+cercano y el rayo de sombra. El modelo se mantiene fijo y la cámara y la luz
+rotan alrededor del eje Y para producir el turntable.
+
+<details>
+<summary>Modelo de cámara e iluminación</summary>
+
+- Cámara en `(0, 0.2, 3.6)` mirando a `(0, 0.05, 0)`, con FOV de 35°.
+- Luz direccional `normalize(-0.75, 0.45, 0.50)` y ambiente `0.08`.
+- Sombra dura: rayo desde la superficie hacia la luz, con bias `1e-3`.
+- Antialiasing 2×2 y corrección de gamma 2.2.
+
+Lambert con sombra:
+
+$$
+I = a + (1 - a)\max(0, N \cdot L)S
+$$
+
+donde `a` es el ambiente, `N` la normal, `L` la dirección a la luz y `S` vale
+0 o 1 según la sombra.
+
+Corrección de gamma:
+
+$$
+C' = C^{1/2.2}
+$$
+
+</details>
+
+## Rendimiento
+
+Medido en el equipo de desarrollo (Windows, gcc 13.2, `-O2`):
+
+| Caso | Tiempo |
+| --- | --- |
+| Construcción del BVH (17 456 triángulos) | ≈0.08 s |
+| Frame de 400×400 con 2×2 muestras | ≈0.6–0.8 s |
+| Animación completa de 120 frames | ≈90 s |
+
+El BVH tiene 6 239 nodos y hojas de hasta 8 triángulos. Se construye una vez y
+se reutiliza en todos los frames.
+
 ## Estructura
 
 - `main.c`: CLI, bucle de frames y escritura de PGM.
