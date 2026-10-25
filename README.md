@@ -3,6 +3,7 @@
   <p>Raytracer en C99 que lee un STL binario, construye un BVH y genera una<br>
   animación turntable de 120 frames con iluminación difusa y sombras duras.</p>
   <p>
+    <a href="https://github.com/juandrodriguezf/stl-raytracer/actions/workflows/build.yml"><img alt="build" src="https://github.com/juandrodriguezf/stl-raytracer/actions/workflows/build.yml/badge.svg?branch=master"></a>
     <img alt="C99" src="https://img.shields.io/badge/C-99-00599C?logo=c&logoColor=white">
     <img alt="gcc 13.2" src="https://img.shields.io/badge/gcc-13.2-A42E2B">
     <img alt="Pillow" src="https://img.shields.io/badge/Pillow-12.1-3776AB?logo=python&logoColor=white">
