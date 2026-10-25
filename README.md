@@ -1,9 +1,21 @@
-# Raytracer de busto 3D
+<div align="center">
+  <h1>STL Raytracer</h1>
+  <p>Raytracer en C99 que lee un STL binario, construye un BVH y genera una<br>
+  animación turntable de 120 frames con iluminación difusa y sombras duras.</p>
+  <p>
+    <img alt="C99" src="https://img.shields.io/badge/C-99-00599C?logo=c&logoColor=white">
+    <img alt="gcc 13.2" src="https://img.shields.io/badge/gcc-13.2-A42E2B">
+    <img alt="Pillow" src="https://img.shields.io/badge/Pillow-12.1-3776AB?logo=python&logoColor=white">
+    <img alt="Windows y Linux" src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux-4B5563">
+  </p>
+  <img src="animation.gif" width="360" alt="Animación turntable del busto">
+</div>
 
-Renderizador en C99 que lee un STL binario, construye un BVH y genera una
-animación turntable de 120 frames con iluminación difusa y sombras duras.
+## Vistas del modelo
 
-![Animación del busto](animation.gif)
+| 0° | 90° | 180° | 270° |
+|:---:|:---:|:---:|:---:|
+| <img src="preview/frame_0000.png" width="180" alt="Vista frontal"> | <img src="preview/frame_0030.png" width="180" alt="Perfil a 90°"> | <img src="preview/frame_0060.png" width="180" alt="Vista trasera"> | <img src="preview/frame_0090.png" width="180" alt="Perfil a 270°"> |
 
 ## Requisitos
 
